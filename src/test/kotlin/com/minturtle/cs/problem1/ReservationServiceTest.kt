@@ -39,10 +39,10 @@ class ReservationServiceTest{
         reservationService.save(entity)
 
 
-        val actual = reservationService.findById(id)
+        val actual = reservationService.findAll()
 
         assertThat(actual).extracting( "dateId", "seatId")
-            .containsExactly( dateId, seatId)
+            .containsExactly( tuple(dateId, seatId))
     }
 
 

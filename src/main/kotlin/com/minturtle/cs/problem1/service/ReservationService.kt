@@ -4,7 +4,6 @@ import com.minturtle.cs.problem1.entity.Reservation
 import com.minturtle.cs.problem1.repository.ReservationRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
-import java.util.concurrent.atomic.AtomicInteger
 
 
 @Service
