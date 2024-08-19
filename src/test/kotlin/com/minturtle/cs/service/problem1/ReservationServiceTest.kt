@@ -1,6 +1,7 @@
 package com.minturtle.cs.service.problem1
 
 import com.minturtle.cs.problem1.entity.Reservation
+import com.minturtle.cs.problem1.repository.ReservationRepository
 import com.minturtle.cs.problem1.service.ReservationService
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,6 +18,10 @@ class ReservationServiceTest{
 
     @Autowired
     private lateinit var reservationService: ReservationService
+
+    @Autowired
+    private lateinit var reservationRepository: ReservationRepository
+
 
 
     @Test
@@ -78,6 +83,17 @@ class ReservationServiceTest{
         assertThat(failedCount.get()).isEqualTo(threadSize - reservationLists.size)
 
         assertThat(reservationService.findAll()).containsExactlyInAnyOrderElementsOf(reservationLists)
+    }
+
+    @Test
+    fun `캐시에 저장된 Reservation 객체를 DB에 저장할 수 있다`(){
+        val reservation = Reservation(1L, 2L)
+
+        reservationService.save(reservation)
+
+        reservationService.toPermanent(reservation)
+
+        assertThat(reservationRepository.findAll()).contains(reservation)
     }
 
 
