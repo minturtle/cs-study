@@ -1,7 +1,7 @@
-package com.minturtle.cs.service
+package com.minturtle.cs.problem1.service
 
-import com.minturtle.cs.entity.Reservation
-import com.minturtle.cs.repository.ReservationRepository
+import com.minturtle.cs.problem1.entity.Reservation
+import com.minturtle.cs.problem1.repository.ReservationRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.concurrent.atomic.AtomicInteger
@@ -17,7 +17,7 @@ class ReservationService(
         reservationRepository.save(idSeq.addAndGet(1).toLong(), entity)
     }
 
-    fun findById(id : Long): Reservation{
+    fun findById(id : Long): Reservation {
         return reservationRepository.findById(id) ?: throw RuntimeException()
     }
 

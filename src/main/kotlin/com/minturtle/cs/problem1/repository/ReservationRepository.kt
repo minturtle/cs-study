@@ -1,8 +1,7 @@
-package com.minturtle.cs.repository
+package com.minturtle.cs.problem1.repository
 
-import com.minturtle.cs.entity.Reservation
+import com.minturtle.cs.problem1.entity.Reservation
 import org.springframework.stereotype.Repository
-import java.awt.List
 
 
 @Repository

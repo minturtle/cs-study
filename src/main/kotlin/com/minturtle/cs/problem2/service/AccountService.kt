@@ -1,7 +1,7 @@
-package com.minturtle.cs.service
+package com.minturtle.cs.problem2.service
 
-import com.minturtle.cs.entity.Account
-import com.minturtle.cs.repository.AccountRepository
+import com.minturtle.cs.problem2.entity.Account
+import com.minturtle.cs.problem2.repository.AccountRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.concurrent.atomic.AtomicInteger

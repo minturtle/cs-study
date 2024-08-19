@@ -1,4 +1,4 @@
-package com.minturtle.cs.entity
+package com.minturtle.cs.problem1.entity
 
 import java.util.Objects
 

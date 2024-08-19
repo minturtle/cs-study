@@ -1,6 +1,6 @@
-package com.minturtle.cs.repository
+package com.minturtle.cs.problem2.repository
 
-import com.minturtle.cs.entity.Account
+import com.minturtle.cs.problem2.entity.Account
 import org.springframework.stereotype.Repository
 
 @Repository

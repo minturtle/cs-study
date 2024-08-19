@@ -1,4 +1,4 @@
-package com.minturtle.cs.entity
+package com.minturtle.cs.problem2.entity
 
 import java.lang.RuntimeException
 

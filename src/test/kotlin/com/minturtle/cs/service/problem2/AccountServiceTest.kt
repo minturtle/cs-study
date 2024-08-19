@@ -1,7 +1,7 @@
-package com.minturtle.cs.service
+package com.minturtle.cs.service.problem2
 
-import com.minturtle.cs.entity.Account
-import com.minturtle.cs.service.AccountService
+import com.minturtle.cs.problem2.entity.Account
+import com.minturtle.cs.problem2.service.AccountService
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.platform.commons.logging.Logger

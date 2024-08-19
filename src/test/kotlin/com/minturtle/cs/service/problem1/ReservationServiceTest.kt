@@ -1,6 +1,7 @@
-package com.minturtle.cs.service
+package com.minturtle.cs.service.problem1
 
-import com.minturtle.cs.entity.Reservation
+import com.minturtle.cs.problem1.entity.Reservation
+import com.minturtle.cs.problem1.service.ReservationService
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
