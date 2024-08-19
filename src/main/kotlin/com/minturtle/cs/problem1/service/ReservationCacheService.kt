@@ -26,4 +26,7 @@ class ReservationCacheService {
         cache.remove(key)
     }
 
+    fun clearAll(){
+        cache.clear()
+    }
 }

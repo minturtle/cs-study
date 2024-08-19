@@ -2,6 +2,7 @@ package com.minturtle.cs.problem1
 
 import com.minturtle.cs.problem1.entity.Reservation
 import com.minturtle.cs.problem1.repository.ReservationRepository
+import com.minturtle.cs.problem1.service.ReservationCacheService
 import com.minturtle.cs.problem1.service.ReservationService
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,9 +23,14 @@ class ReservationServiceTest{
 
     @Autowired
     private lateinit var reservationRepository: ReservationRepository
+
+    @Autowired
+    private lateinit var cacheService: ReservationCacheService
+
     @BeforeEach
     fun setUp() {
         reservationRepository.deleteAll()
+        cacheService.clearAll()
     }
     @Test
     fun `Reservation 객체를 저장하고 조회할 수 있다`(){
@@ -96,6 +102,7 @@ class ReservationServiceTest{
         reservationService.toPermanent(reservation)
 
         assertThat(reservationRepository.findAll()).contains(reservation)
+        assertThat(cacheService.getAll()).doesNotContain(reservation)
     }
 
 
