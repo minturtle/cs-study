@@ -1,11 +1,13 @@
-package com.minturtle.cs.service.problem1
+package com.minturtle.cs.problem1
 
 import com.minturtle.cs.problem1.entity.Reservation
+import com.minturtle.cs.problem1.repository.ReservationRepository
 import com.minturtle.cs.problem1.service.ReservationService
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.RuntimeException
 import java.util.concurrent.CountDownLatch
@@ -18,6 +20,13 @@ class ReservationServiceTest{
     @Autowired
     private lateinit var reservationService: ReservationService
 
+    @Autowired
+    private lateinit var reservationRepository: ReservationRepository
+
+    @BeforeEach
+    fun setUp() {
+        reservationRepository.deleteAll()
+    }
 
     @Test
     fun `Reservation 객체를 저장하고 조회할 수 있다`(){

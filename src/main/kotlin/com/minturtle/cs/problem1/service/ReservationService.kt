@@ -11,10 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger
 class ReservationService(
     private val reservationRepository: ReservationRepository
 ) {
-    private val idSeq = AtomicInteger(0)
 
     fun save(entity: Reservation){
-        reservationRepository.save(idSeq.addAndGet(1).toLong(), entity)
+        reservationRepository.save(entity)
     }
 
     fun findById(id : Long): Reservation {
