@@ -4,7 +4,6 @@ import com.minturtle.cs.problem1.entity.Reservation
 import com.minturtle.cs.problem1.repository.ReservationRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
-import java.util.concurrent.atomic.AtomicInteger
 
 
 @Service
@@ -12,10 +11,11 @@ class ReservationService(
     private val reservationRepository: ReservationRepository,
     private val cache: ReservationCacheService
 ) {
-    private val idSeq = AtomicInteger(0)
+
 
     companion object{
         private val RESERVATION_CACHE_PREFIX = "RESERVATION_"
+
     }
 
     fun save(entity: Reservation){
@@ -34,7 +34,7 @@ class ReservationService(
         val key = RESERVATION_CACHE_PREFIX + entity.hashCode()
         val cacheValue = cache.get(key) ?: throw RuntimeException()
 
-        reservationRepository.save(idSeq.incrementAndGet().toLong(), cacheValue)
+        reservationRepository.save(cacheValue)
         cache.remove(key)
     }
 

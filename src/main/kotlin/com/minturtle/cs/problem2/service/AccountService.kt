@@ -11,11 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger
 class AccountService(
     private val accountRepository: AccountRepository
 ){
-
-    private val idSeq = AtomicInteger(0)
-
     fun save(entity: Account){
-        accountRepository.save(idSeq.addAndGet(1).toLong(), entity)
+        accountRepository.save(entity)
     }
 
     fun deposit(id: Long, amount: Int){
