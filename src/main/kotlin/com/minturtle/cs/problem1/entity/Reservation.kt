@@ -3,6 +3,7 @@ package com.minturtle.cs.problem1.entity
 import java.util.Objects
 
 class Reservation(
+    val id: String,
     private val dateId: Long,
     private val seatId: Long
 ){
@@ -12,10 +13,10 @@ class Reservation(
             return false
         }
 
-        return this.dateId == other.dateId && this.seatId == other.seatId
+        return this.id == other.id
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(this.dateId, this.seatId)
+        return Objects.hash(this.id)
     }
 }

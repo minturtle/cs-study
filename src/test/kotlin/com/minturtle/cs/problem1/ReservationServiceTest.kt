@@ -1,12 +1,12 @@
 package com.minturtle.cs.problem1
 
-import com.minturtle.cs.problem1.entity.Reservation
 import com.minturtle.cs.problem1.repository.ReservationRepository
 import com.minturtle.cs.problem1.service.ReservationService
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 import org.assertj.core.api.Assertions.*
+import org.assertj.core.groups.Tuple
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.RuntimeException
@@ -29,30 +29,12 @@ class ReservationServiceTest{
     }
 
     @Test
-    fun `Reservation 객체를 저장하고 조회할 수 있다`(){
-        val id = 1L
-        val dateId = 2L
-        val seatId = 3L
-
-        val entity = Reservation(dateId, seatId)
-
-        reservationService.save(entity)
-
-
-        val actual = reservationService.findAll()
-
-        assertThat(actual).extracting( "dateId", "seatId")
-            .containsExactly( tuple(dateId, seatId))
-    }
-
-
-    @Test
     fun `동시에 Reservation 객체가 여러개 요청이 오더라도, 최초의 요청을 제외하곤 모두 실패한다`(){
 
         val reservationLists = listOf(
-            Reservation(1L, 2L),
-            Reservation(3L, 4L),
-            Reservation(5L, 6L)
+            Pair(1L, 2L),
+            Pair(3L, 4L),
+            Pair(5L, 6L)
         )
 
         val threadSize = 100
@@ -69,8 +51,8 @@ class ReservationServiceTest{
                 val idx = idx.incrementAndGet()
 
                 try{
-                    val reservation = reservationLists[idx % reservationLists.size]
-                    reservationService.save(reservation)
+                    val pair = reservationLists[idx % reservationLists.size]
+                    reservationService.save(pair.first, pair.second)
                     successCount.incrementAndGet()
                 }catch (e : RuntimeException){
                     failedCount.incrementAndGet()
@@ -85,8 +67,11 @@ class ReservationServiceTest{
 
         assertThat(successCount.get()).isEqualTo(reservationLists.size)
         assertThat(failedCount.get()).isEqualTo(threadSize - reservationLists.size)
-
-        assertThat(reservationService.findAll()).containsExactlyInAnyOrderElementsOf(reservationLists)
+        assertThat(reservationService.findAll()).extracting("dateId", "seatId").containsExactlyInAnyOrder(
+            Tuple.tuple(reservationLists[0].first, reservationLists[0].second),
+            Tuple.tuple(reservationLists[1].first, reservationLists[1].second),
+            Tuple.tuple(reservationLists[2].first, reservationLists[2].second),
+        )
     }
 
 
