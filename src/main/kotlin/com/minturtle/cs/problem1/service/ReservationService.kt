@@ -28,6 +28,7 @@ class ReservationService(
         )
 
         try{
+            cacheManager.add(newEntity.id, newEntity)
             reservationRepository.save(newEntity)
         }catch (e: MyDataIntegrationException){
             throw RuntimeException()
