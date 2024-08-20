@@ -17,9 +17,7 @@ class AccountService(
     fun deposit(id: Long, amount: Int){
         val lock = Problem2LockService.acquire(id)
 
-        while(!lock.tryLock()){
-
-        }
+        lock.lock()
 
         val account = findById(id)
 
