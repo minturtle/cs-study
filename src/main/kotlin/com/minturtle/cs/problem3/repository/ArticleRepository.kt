@@ -1,6 +1,7 @@
 package com.minturtle.cs.problem3.repository
 
 import com.minturtle.cs.problem3.entity.Article
+import com.minturtle.cs.problem3.exception.Problem3DataIntegrityViolationException
 import org.springframework.stereotype.Repository
 import java.util.concurrent.ConcurrentHashMap
 
@@ -12,11 +13,18 @@ class ArticleRepository {
 
 
     fun save(article : Article){
-        articleDao[article.articleNo] = article
+        articleDao.putIfAbsent(article.articleNo, article)
+            ?.let {
+                throw Problem3DataIntegrityViolationException()
+            }
     }
 
     fun findKeys(): Set<Long> {
         return articleDao.keys
+    }
+
+    fun findById(id: Long) : Article?{
+        return articleDao[id]
     }
 
 }
