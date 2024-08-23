@@ -17,7 +17,7 @@ class ArticleCrawler {
         lastArticleNum.addAndGet(Random.nextInt(10, 21))
         val articleNumberList = ((lastArticleNum.get() - size)..lastArticleNum.get()).toList()
 
-        return articleNumberList.map { "/news/${articleNumberList}" }
+        return articleNumberList.map { "/news/$it" }
     }
 
     fun crawlDetail(articleNo : Long): Article {
