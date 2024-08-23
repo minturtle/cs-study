@@ -4,7 +4,6 @@ import com.minturtle.cs.problem2.entity.Account
 import com.minturtle.cs.problem2.repository.AccountRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
-import java.util.concurrent.atomic.AtomicInteger
 
 
 @Service
@@ -16,9 +15,14 @@ class AccountService(
     }
 
     fun deposit(id: Long, amount: Int){
+        val lock = Problem2LockService.acquire(id)
+
+        lock.lock()
+
         val account = findById(id)
 
         account.deposit(amount)
+        lock.unlock()
     }
 
     fun findById(id : Long): Account {
